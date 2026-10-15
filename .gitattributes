@@ -1,0 +1,3 @@
+# L5X is XML from Windows: store normalized, check out with CRLF
+*.L5X text eol=crlf
+*.L5K text eol=crlf
