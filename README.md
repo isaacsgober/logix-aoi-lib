@@ -6,6 +6,7 @@ Reusable Add-On Instructions (AOIs) and UDTs for Allen-Bradley Logix controllers
 
 | AOI | Description | Version |
 |---|---|---|
+| [Blink](AOIs/Blink) | Flasher: output toggles at a set half-period | 1.0 |
 
 ## Using an AOI
 
