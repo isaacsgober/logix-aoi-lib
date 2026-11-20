@@ -1,0 +1,974 @@
+﻿(*********************************************
+
+  Import-Export
+  Version   := RSLogix 5000 v36.03
+  Owner     := , 
+  Exported  := Thu Nov 19 17:52:18 2026
+
+  Note:  File encoded in UTF-8.  Only edit file in a program 
+         which supports UTF-8 (like Notepad, not Wordpad).
+
+**********************************************)
+IE_VER := 2.27;
+
+CONTROLLER TwoPosActuator_Test (ProcessorType := "1769-L24ER-QB1B",
+                                Major := 36,
+                                TimeSlice := 20,
+                                ShareUnusedTimeSlice := 1,
+                                RedundancyEnabled := 0,
+                                KeepTestEditsOnSwitchOver := 0,
+                                DataTablePadPercentage := 50,
+                                SecurityCode := 0,
+                                ChangesToDetect := 16#ffff_ffff_ffff_ffff,
+                                SFCExecutionControl := "CurrentActive",
+                                SFCRestartPosition := "MostRecent",
+                                SFCLastScan := "DontScan",
+                                SerialNumber := 16#c01e_3352,
+                                MatchProjectToController := No,
+                                CanUseRPIFromProducer := No,
+                                InhibitAutomaticFirmwareUpdate := 0,
+                                PassThroughConfiguration := EnabledWithAppend,
+                                DownloadProjectDocumentationAndExtendedProperties := Yes,
+                                ReportMinorOverflow := 0)
+	MODULE Local (Parent := "Local",
+	              ParentModPortId := 1,
+	              CatalogNumber := "1769-L24ER-QB1B",
+	              Vendor := 1,
+	              ProductType := 14,
+	              ProductCode := 149,
+	              Major := 36,
+	              Minor := 12,
+	              ChassisSize := 6,
+	              Slot := 0,
+	              Mode := 2#0000_0000_0000_0001,
+	              CompatibleModule := 0,
+	              KeyMask := 2#0000_0000_0000_0000)
+	END_MODULE
+
+	MODULE Discrete_IO (Parent := "Local",
+	                    ParentModPortId := 1,
+	                    CatalogNumber := "Embedded",
+	                    Vendor := 1,
+	                    ProductType := 7,
+	                    ProductCode := 64,
+	                    Major := 3,
+	                    Minor := 1,
+	                    PortLabel := "RxBACKPLANE",
+	                    Slot := 1,
+	                    Mode := 2#0000_0000_0000_0001,
+	                    CompatibleModule := 1,
+	                    KeyMask := 2#0000_0000_0001_1111)
+			ExtendedProp := [[[___<public><ConfigID>100</ConfigID><CatNum>Embedded</CatNum></public>___]]]
+			ConfigData  := [24,102,1,0,0,0,0,0,0,0,0,0];
+			CONNECTION Output (Rate := 20000,
+			                   EventID := 0,
+			                   Unicast := No)
+					InputData  := [0,0,0];
+					OutputData  := [0];
+			END_CONNECTION
+
+	END_MODULE
+
+	ADD_ON_INSTRUCTION_DEFINITION TimeCues (Description := "One-scan cues when an elapsed time passes fixed points from 10 ms to 10 s, for timed sequences and test timelines.",
+	                                        Revision := "1.0",
+	                                        ExecutePrescan := No,
+	                                        ExecutePostscan := No,
+	                                        ExecuteEnableInFalse := No,
+	                                        CreatedDate := "2026-11-19T22:57:21.557Z",
+	                                        CreatedBy := "ICCMS\igober01",
+	                                        EditedDate := "2026-11-19T23:04:35.198Z",
+	                                        EditedBy := "ICCMS\igober01",
+	                                        SoftwareRevision := "v36.03")
+		PARAMETERS
+			EnableIn : BOOL (Description := "Enable Input - System Defined Parameter",
+			                    Usage := Input,
+			                    RADIX := Decimal,
+			                    Required := No,
+			                    Visible := No,
+			                    ExternalAccess := Read Only);
+			EnableOut : BOOL (Description := "Enable Output - System Defined Parameter",
+			                     Usage := Output,
+			                     RADIX := Decimal,
+			                     Required := No,
+			                     Visible := No,
+			                     ExternalAccess := Read Only);
+			Elapsed : DINT (Description := "Elapsed time in ms, such as a timer’s ACC. Restart it at 0 for each new timeline.",
+			                   Usage := Input,
+			                   RADIX := Decimal,
+			                   Required := Yes,
+			                   Visible := Yes,
+			                   DefaultData := 0);
+			T10 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T20 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T30 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T40 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T50 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T60 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T70 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T80 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T90 : BOOL (Usage := Output,
+			               RADIX := Decimal,
+			               Required := No,
+			               Visible := No,
+			               ExternalAccess := Read Only,
+			               DefaultData := 0);
+			T100 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T120 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T150 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T200 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T250 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T300 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T400 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T500 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T750 : BOOL (Usage := Output,
+			                RADIX := Decimal,
+			                Required := No,
+			                Visible := No,
+			                ExternalAccess := Read Only,
+			                DefaultData := 0);
+			T1000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T1500 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T2000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T2500 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T3000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T3500 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T4000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T4500 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T5000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T6000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T7000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T8000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T9000 : BOOL (Usage := Output,
+			                 RADIX := Decimal,
+			                 Required := No,
+			                 Visible := No,
+			                 ExternalAccess := Read Only,
+			                 DefaultData := 0);
+			T10000 : BOOL (Usage := Output,
+			                  RADIX := Decimal,
+			                  Required := No,
+			                  Visible := No,
+			                  ExternalAccess := Read Only,
+			                  DefaultData := 0);
+		END_PARAMETERS
+
+		LOCAL_TAGS
+			ElapsedStorage : DINT (RADIX := Decimal,
+			                         ExternalAccess := None,
+			                         DefaultData := 0);
+		END_LOCAL_TAGS
+
+		ST_ROUTINE Logic 
+			'T10 := (Elapsed >= 10) AND (ElapsedStorage < 10);
+			'T20 := (Elapsed >= 20) AND (ElapsedStorage < 20);
+			'T30 := (Elapsed >= 30) AND (ElapsedStorage < 30);
+			'T40 := (Elapsed >= 40) AND (ElapsedStorage < 40);
+			'T50 := (Elapsed >= 50) AND (ElapsedStorage < 50);
+			'T60 := (Elapsed >= 60) AND (ElapsedStorage < 60);
+			'T70 := (Elapsed >= 70) AND (ElapsedStorage < 70);
+			'T80 := (Elapsed >= 80) AND (ElapsedStorage < 80);
+			'T90 := (Elapsed >= 90) AND (ElapsedStorage < 90);
+			'T100 := (Elapsed >= 100) AND (ElapsedStorage < 100);
+			'T120 := (Elapsed >= 120) AND (ElapsedStorage < 120);
+			'T150 := (Elapsed >= 150) AND (ElapsedStorage < 150);
+			'T200 := (Elapsed >= 200) AND (ElapsedStorage < 200);
+			'T250 := (Elapsed >= 250) AND (ElapsedStorage < 250);
+			'T300 := (Elapsed >= 300) AND (ElapsedStorage < 300);
+			'T400 := (Elapsed >= 400) AND (ElapsedStorage < 400);
+			'T500 := (Elapsed >= 500) AND (ElapsedStorage < 500);
+			'T750 := (Elapsed >= 750) AND (ElapsedStorage < 750);
+			'T1000 := (Elapsed >= 1000) AND (ElapsedStorage < 1000);
+			'T1500 := (Elapsed >= 1500) AND (ElapsedStorage < 1500);
+			'T2000 := (Elapsed >= 2000) AND (ElapsedStorage < 2000);
+			'T2500 := (Elapsed >= 2500) AND (ElapsedStorage < 2500);
+			'T3000 := (Elapsed >= 3000) AND (ElapsedStorage < 3000);
+			'T3500 := (Elapsed >= 3500) AND (ElapsedStorage < 3500);
+			'T4000 := (Elapsed >= 4000) AND (ElapsedStorage < 4000);
+			'T4500 := (Elapsed >= 4500) AND (ElapsedStorage < 4500);
+			'T5000 := (Elapsed >= 5000) AND (ElapsedStorage < 5000);
+			'T6000 := (Elapsed >= 6000) AND (ElapsedStorage < 6000);
+			'T7000 := (Elapsed >= 7000) AND (ElapsedStorage < 7000);
+			'T8000 := (Elapsed >= 8000) AND (ElapsedStorage < 8000);
+			'T9000 := (Elapsed >= 9000) AND (ElapsedStorage < 9000);
+			'T10000 := (Elapsed >= 10000) AND (ElapsedStorage < 10000);
+			'ElapsedStorage := Elapsed;
+		END_ST_ROUTINE
+
+	END_ADD_ON_INSTRUCTION_DEFINITION
+
+	ADD_ON_INSTRUCTION_DEFINITION TwoPosActuator (Description := "Two-position actuator monitor that confirms the commanded position from end-of-travel sensors, with a timeout fault and a sensor conflict fault.",
+	                                              Revision := "1.0",
+	                                              ExecutePrescan := No,
+	                                              ExecutePostscan := No,
+	                                              ExecuteEnableInFalse := No,
+	                                              CreatedDate := "2026-11-19T17:25:57.442Z",
+	                                              CreatedBy := "ICCMS\igober01",
+	                                              EditedDate := "2026-11-19T18:42:30.305Z",
+	                                              EditedBy := "ICCMS\igober01",
+	                                              SoftwareRevision := "v36.03")
+		PARAMETERS
+			EnableIn : BOOL (Description := "Enable Input - System Defined Parameter",
+			                    Usage := Input,
+			                    RADIX := Decimal,
+			                    Required := No,
+			                    Visible := No,
+			                    ExternalAccess := Read Only);
+			EnableOut : BOOL (Description := "Enable Output - System Defined Parameter",
+			                     Usage := Output,
+			                     RADIX := Decimal,
+			                     Required := No,
+			                     Visible := No,
+			                     ExternalAccess := Read Only);
+			DriveType : INT (Description := "0 = one drive, returns to position 0 when off (single-solenoid spring return). 1 = two drives, holds when both off (double-solenoid detented). 2 = two drives, stops when both off (three-position center).",
+			                     Usage := Input,
+			                     RADIX := Decimal,
+			                     Required := Yes,
+			                     Visible := Yes,
+			                     DefaultData := 0);
+			DeactivateOnFault : BOOL (Description := "If true, any fault sets Drive0 and Drive1 false. If false, Drive0 and Drive1 hold their respective last states.",
+			                             Usage := Input,
+			                             RADIX := Decimal,
+			                             Required := Yes,
+			                             Visible := Yes,
+			                             DefaultData := 0);
+			Cmd : INT (Description := "0 = go to position 0, 1 = go to position 1, 2 = stop (DriveType 2 only).",
+			               Usage := Input,
+			               RADIX := Decimal,
+			               Required := Yes,
+			               Visible := Yes,
+			               DefaultData := 0);
+			Pos0Sensor : BOOL (Description := "Sensor at position 0.",
+			                      Usage := Input,
+			                      RADIX := Decimal,
+			                      Required := Yes,
+			                      Visible := Yes,
+			                      DefaultData := 0);
+			TimeoutTo0 : DINT (Description := "Time allowed to reach position 0 after Cmd becomes 0 (ms).",
+			                      Usage := Input,
+			                      RADIX := Decimal,
+			                      Required := Yes,
+			                      Visible := Yes,
+			                      DefaultData := 0);
+			Pos1Sensor : BOOL (Description := "Sensor at position 1.",
+			                      Usage := Input,
+			                      RADIX := Decimal,
+			                      Required := Yes,
+			                      Visible := Yes,
+			                      DefaultData := 0);
+			TimeoutTo1 : DINT (Description := "Time allowed to reach position 1 after Cmd becomes 1 (ms).",
+			                      Usage := Input,
+			                      RADIX := Decimal,
+			                      Required := Yes,
+			                      Visible := Yes,
+			                      DefaultData := 0);
+			Reset : BOOL (Description := "Clears latched faults.",
+			                 Usage := Input,
+			                 RADIX := Decimal,
+			                 Required := Yes,
+			                 Visible := Yes,
+			                 DefaultData := 0);
+			Drive0 : BOOL (Description := "On when Cmd is 0. Off when any fault is latched if DeactivateOnFault is true.",
+			                  Usage := Output,
+			                  RADIX := Decimal,
+			                  Required := No,
+			                  Visible := No,
+			                  ExternalAccess := Read Only,
+			                  DefaultData := 0);
+			Drive1 : BOOL (Description := "On when Cmd is 1. Off when any fault is latched if DeactivateOnFault is true.",
+			                  Usage := Output,
+			                  RADIX := Decimal,
+			                  Required := No,
+			                  Visible := No,
+			                  ExternalAccess := Read Only,
+			                  DefaultData := 0);
+			AtPos0 : BOOL (Description := "Cmd is 0, Pos0Sensor is on, and Pos1Sensor is off.",
+			                  Usage := Output,
+			                  RADIX := Decimal,
+			                  Required := No,
+			                  Visible := No,
+			                  ExternalAccess := Read Only,
+			                  DefaultData := 0);
+			AtPos1 : BOOL (Description := "Cmd is 1, Pos1Sensor is on, and Pos0Sensor is off.",
+			                  Usage := Output,
+			                  RADIX := Decimal,
+			                  Required := No,
+			                  Visible := No,
+			                  ExternalAccess := Read Only,
+			                  DefaultData := 0);
+			TimeoutFault : BOOL (Description := "Commanded position not reached in time. Latched until Reset.",
+			                        Usage := Output,
+			                        RADIX := Decimal,
+			                        Required := No,
+			                        Visible := No,
+			                        ExternalAccess := Read Only,
+			                        DefaultData := 0);
+			SensorFault : BOOL (Description := "Both sensors on at once. Latched until Reset.",
+			                       Usage := Output,
+			                       RADIX := Decimal,
+			                       Required := No,
+			                       Visible := No,
+			                       ExternalAccess := Read Only,
+			                       DefaultData := 0);
+			ParamFault : BOOL (Description := "Cmd DriveType, or Timeout out of range, or Cmd 2 with DriveType 0 or 1. Latched until Reset.",
+			                      Usage := Output,
+			                      RADIX := Decimal,
+			                      Required := No,
+			                      Visible := No,
+			                      ExternalAccess := Read Only,
+			                      DefaultData := 0);
+		END_PARAMETERS
+
+		LOCAL_TAGS
+			CmdStorage : INT (RADIX := Decimal,
+			                     ExternalAccess := None,
+			                     DefaultData := 0);
+			MoveTimer : FBD_TIMER (ExternalAccess := None,
+			                    DefaultData := "[1,0,0,0,0,0,0,0,0,4,0,0]");
+		END_LOCAL_TAGS
+
+		ST_ROUTINE Logic (Description := "Two-position actuator monitor that confirms the commanded position from end-of-travel sensors, with a timeout fault and a sensor conflict fault.")
+			'IF Reset THEN
+			'	ParamFault := 0;
+			'	SensorFault := 0;
+			'	TimeoutFault := 0;
+			'END_IF;
+			'AtPos0 := ((Cmd = 0) AND Pos0Sensor AND NOT Pos1Sensor);
+			'AtPos1 := ((Cmd = 1) AND Pos1Sensor AND NOT Pos0Sensor);
+			'
+			'CASE Cmd OF
+			'	0:
+			'		MoveTimer.PRE := TimeoutTo0;
+			'	1:
+			'		MoveTimer.PRE := TimeoutTo1;
+			'END_CASE;
+			'MoveTimer.TimerEnable := (((Cmd = 0) AND NOT AtPos0) OR ((Cmd = 1) AND NOT AtPos1));
+			'MoveTimer.Reset := ((Cmd <> CmdStorage) OR Reset);
+			'TONR(MoveTimer);
+			'
+			'IF MoveTimer.DN THEN
+			'	TimeoutFault := 1;
+			'END_IF;
+			'IF ((DriveType < 0) OR (DriveType > 2) OR (Cmd < 0) OR (Cmd > 2) OR ((Cmd = 2) AND DriveType <> 2) OR (TimeoutTo0 < 0) OR (TimeoutTo1 < 0)) THEN
+			'	ParamFault := 1;
+			'END_IF;
+			'IF (Pos0Sensor AND Pos1Sensor) THEN
+			'	SensorFault := 1;
+			'END_IF;
+			'
+			'Drive0 := (Cmd = 0);
+			'Drive1 := (Cmd = 1);
+			'IF ((ParamFault OR SensorFault OR TimeoutFault) AND DeactivateOnFault) THEN
+			'	Drive0 := 0;
+			'	Drive1 := 0;
+			'END_IF;
+			'
+			'CmdStorage := Cmd;
+		END_ST_ROUTINE
+
+	END_ADD_ON_INSTRUCTION_DEFINITION
+
+	TAG
+		CaseIndex : DINT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		CaseList : DINT[24] (RADIX := Decimal,
+		            ExternalAccess := Read Only) := [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,111,211,215,901,902];
+		CaseTimer : FBD_TIMER (ExternalAccess := Read Only) := [1,0,0,0,0,0,0,0,0,4,0,0];
+		Command : INT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		Cue : TimeCues (ExternalAccess := Read Only) := [1,0,0,0];
+		DriverRun : BOOL (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		DriverStep : DINT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		FailNow : DINT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		FailTime : DINT[24] (RADIX := Decimal,
+		            ExternalAccess := Read Only) := [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+		i : DINT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		NoFaults : BOOL (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		ResetButton : BOOL (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		Sensor0 : BOOL (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		Sensor1 : BOOL (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		TestActuator : TwoPosActuator (ExternalAccess := Read Only) := [1,0,0,0,0,0,[1,0,0,0,0,0,0,0,0,4,0,0]];
+		TestCase : DINT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		TestDeactivate : BOOL (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		TestDriveType : INT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		TestMode : DINT (Description := "Value / 100 = DriveType, last two digits = case, 0 = idle. A new value applies its preset and pulses Reset. 1: at pos 0. 2: move to pos 1. 3: timeout. 4: timeout, DeactivateOnFault. 5: Reset retry. 6: Reset, then arrive. 7: Cmd change restarts timer. 8: lost position. 9: both sensors on. 10: sensor fault Reset. 11: Cmd 2. 12: Cmd 5. 13: TimeoutTo0 -1. 14: TimeoutTo1 -1. 101-110: 1-10, DriveType 1. 111: Cmd 2. 201: Cmd 2 stop. 202: stop, Cmd 1. 203: timeout. 212: Cmd 5. 901: DriveType -1. 902: DriveType 3.",
+		            RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		TestModeStorage : DINT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		TestReset : BOOL (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		Timeout0 : DINT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+		Timeout1 : DINT (RADIX := Decimal,
+		            ExternalAccess := Read Only) := 0;
+	END_TAG
+
+	PROGRAM MainProgram (MAIN := "MainRoutine",
+	                     MODE := 0,
+	                     DisableFlag := 0,
+	                     UseAsFolder := 0)
+		TAG
+		END_TAG
+
+		ST_ROUTINE Harness 
+			'TestDriveType := (TestMode / 100);
+			'IF TestMode = 901 THEN
+			'	TestDriveType := -1;
+			'ELSIF TestMode = 902 THEN
+			'	TestDriveType := 3;
+			'END_IF;
+			'
+			'TestCase := (TestMode MOD 100);
+			'TestReset := ResetButton;
+			'
+			'IF TestMode <> TestModeStorage THEN // Sets preconditions
+			'	TestReset := 1;
+			'	CASE TestCase OF
+			'		1: //At position 0
+			'			Command := 0;
+			'			Sensor0 := 1;
+			'			Sensor1 := 0;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		2: //Move to position 1
+			'			Command := 1;
+			'			Sensor0 := 1;
+			'			Sensor1 := 0;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		3: //Timeout
+			'			Command := 0;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		4: //Timeout, Deactivate on Fault
+			'			Command := 0;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 1;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		5: //Reset retries
+			'			Command := 0;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		6: //Reset then arrive
+			'			Command := 0;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		7: //Timer restarts on Cmd change
+			'			Command := 1;
+			'			Sensor0 := 0;
+			'			Sensor1 := 0;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		8: //Lost position
+			'			Command := 1;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		9: //Both sensors on
+			'			Command := 0;
+			'			Sensor0 := 1;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		10: //Sensor fault reset
+			'			Command := 0;
+			'			Sensor0 := 1;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		11: //Stop command
+			'			Command := 2;
+			'			Sensor0 := 0;
+			'			Sensor1 := 0;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		12: //Cmd out of range
+			'			Command := 5;
+			'			Sensor0 := 0;
+			'			Sensor1 := 0;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		13: //Negative Timeout0
+			'			Command := 0;
+			'			Sensor0 := 1;
+			'			Sensor1 := 0;
+			'			TestDeactivate := 0;
+			'			Timeout0 := -1;
+			'			Timeout1 := 100;
+			'		14: //Negative Timeout1
+			'			Command := 1;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := -1;
+			'		15: //Stop, then move
+			'			Command := 2;
+			'			Sensor0 := 0;
+			'			Sensor1 := 0;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		16: //At position 1
+			'			Command := 1;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		17: //Move to position 0
+			'			Command := 0;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 100;
+			'		18: //Cmd 0 uses Timeout0
+			'			Command := 0;
+			'			Sensor0 := 0;
+			'			Sensor1 := 1;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 100;
+			'			Timeout1 := 300;
+			'		19: //Cmd 1 uses Timeout1
+			'			Command := 1;
+			'			Sensor0 := 1;
+			'			Sensor1 := 0;
+			'			TestDeactivate := 0;
+			'			Timeout0 := 300;
+			'			Timeout1 := 100;
+			'	END_CASE;
+			'END_IF;
+			'
+			'TwoPosActuator(TestActuator, TestDriveType, TestDeactivate, Command, Sensor0, Timeout0, Sensor1, Timeout1, TestReset);
+			'
+			'TestModeStorage := TestMode;
+		END_ST_ROUTINE
+
+		ST_ROUTINE MainRoutine 
+			'JSR(TestDriver, 0);
+			'JSR(Harness, 0);
+		END_ST_ROUTINE
+
+		ST_ROUTINE TestDriver 
+			'TimeCues(Cue, CaseTimer.ACC);
+			'CASE DriverStep OF
+			'	0:
+			'		IF DriverRun THEN
+			'			CaseIndex := 0;
+			'			FOR i := 0 TO 23 DO
+			'				FailTime[i] := 0;
+			'			END_FOR;
+			'			DriverStep := 10;
+			'		END_IF;
+			'	10:
+			'		TestMode := 0;
+			'		DriverStep := 20;
+			'	20:
+			'		TestMode := CaseList[CaseIndex];
+			'		DriverStep := 30;
+			'	30:
+			'		ResetButton := 0;
+			'		NoFaults := NOT (TestActuator.TimeoutFault OR TestActuator.SensorFault OR TestActuator.ParamFault);
+			'		FailNow := 0;
+			'		IF ((TestMode = 901) OR (TestMode = 902)) THEN
+			'			IF Cue.T20 AND NOT TestActuator.ParamFault THEN
+			'				FailNow := 20;
+			'			END_IF;
+			'		ELSE
+			'			CASE TestCase OF
+			'				1: //At position 0
+			'					IF Cue.T50 AND NOT (TestActuator.AtPos0 AND TestActuator.Drive0 AND NoFaults) THEN
+			'						FailNow := 50;
+			'					END_IF;
+			'					IF Cue.T200 AND NOT NoFaults THEN
+			'						FailNow := 200;
+			'					END_IF;
+			'				2: //Move to position 1
+			'					IF Cue.T50 THEN
+			'						Sensor0 := 0;
+			'						Sensor1 := 1;
+			'					END_IF;
+			'					IF Cue.T80 AND NOT (TestActuator.AtPos1 AND TestActuator.Drive1 AND NoFaults) THEN
+			'						FailNow := 80;
+			'					END_IF;
+			'					IF Cue.T200 AND NOT NoFaults THEN
+			'						FailNow := 200;
+			'					END_IF;
+			'				3: //Timeout
+			'					IF Cue.T50 AND NOT NoFaults THEN
+			'						FailNow := 50;
+			'					END_IF;
+			'					IF Cue.T150 AND NOT (TestActuator.TimeoutFault AND TestActuator.Drive0) THEN
+			'						FailNow := 150;
+			'					END_IF;
+			'				4: //Timeout, Deactivate on Fault
+			'					IF Cue.T150 AND NOT (TestActuator.TimeoutFault AND NOT (TestActuator.Drive0 OR TestActuator.Drive1)) THEN
+			'						FailNow := 150;
+			'					END_IF;
+			'				5: //Reset retries
+			'					IF Cue.T150 THEN
+			'						ResetButton := 1;
+			'					END_IF;
+			'					IF Cue.T120 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 120;
+			'					END_IF;
+			'					IF Cue.T200 AND NOT NoFaults THEN
+			'						FailNow := 200;
+			'					END_IF;
+			'					IF Cue.T300 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 300;
+			'					END_IF;
+			'				6: //Reset then arrive
+			'					IF Cue.T150 THEN
+			'						ResetButton := 1;
+			'					END_IF;
+			'					IF Cue.T200 THEN
+			'						Sensor0 := 1;
+			'						Sensor1 := 0;
+			'					END_IF;
+			'					IF Cue.T120 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 120;
+			'					END_IF;
+			'					IF Cue.T300 AND NOT (NoFaults AND TestActuator.AtPos0) THEN
+			'						FailNow := 300;
+			'					END_IF;
+			'				7: //Timer restarts on Cmd change
+			'					IF Cue.T60 THEN
+			'						Command := 0;
+			'					END_IF;
+			'					IF Cue.T120 AND NOT NoFaults THEN
+			'						FailNow := 120;
+			'					END_IF;
+			'					IF Cue.T200 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 200;
+			'					END_IF;
+			'				8: //Lost position
+			'					IF Cue.T50 THEN
+			'						Sensor1 := 0;
+			'					END_IF;
+			'					IF Cue.T40 AND NOT TestActuator.AtPos1 THEN
+			'						FailNow := 40;
+			'					END_IF;
+			'					IF Cue.T120 AND NOT NoFaults THEN
+			'						FailNow := 120;
+			'					END_IF;
+			'					IF Cue.T200 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 200;
+			'					END_IF;
+			'				9: //Both sensors on
+			'					IF Cue.T20 AND NOT TestActuator.SensorFault THEN
+			'						FailNow := 20;
+			'					END_IF;
+			'					IF Cue.T150 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 150;
+			'					END_IF;
+			'				10: //Sensor fault reset
+			'					IF Cue.T20 THEN
+			'						ResetButton := 1;
+			'					END_IF;
+			'					IF Cue.T40 THEN
+			'						Sensor1 := 0;
+			'					END_IF;
+			'					IF Cue.T50 THEN
+			'						ResetButton := 1;
+			'					END_IF;
+			'					IF Cue.T30 AND NOT TestActuator.SensorFault THEN
+			'						FailNow := 30;
+			'					END_IF;
+			'					IF Cue.T60 AND NOT NoFaults THEN
+			'						FailNow := 60;
+			'					END_IF;
+			'				11: //Stop command
+			'					IF Cue.T20 THEN
+			'						IF TestDriveType = 2 THEN
+			'							IF NOT (NoFaults AND NOT (TestActuator.Drive0 OR TestActuator.Drive1)) THEN
+			'								FailNow := 20;
+			'							END_IF;
+			'						ELSIF NOT TestActuator.ParamFault THEN
+			'							FailNow := 20;
+			'						END_IF;
+			'					END_IF;
+			'					IF Cue.T150 AND (TestDriveType = 2) AND NOT NoFaults THEN
+			'						FailNow := 150;
+			'					END_IF;
+			'				12: //Cmd out of range
+			'					IF Cue.T20 AND NOT TestActuator.ParamFault THEN
+			'						FailNow := 20;
+			'					END_IF;
+			'				13: //Negative Timeout0
+			'					IF Cue.T20 AND NOT TestActuator.ParamFault THEN
+			'						FailNow := 20;
+			'					END_IF;
+			'				14: //Negative Timeout1
+			'					IF Cue.T20 AND NOT TestActuator.ParamFault THEN
+			'						FailNow := 20;
+			'					END_IF;
+			'				15: //Stop, then move
+			'					IF Cue.T50 THEN
+			'						Command := 1;
+			'					END_IF;
+			'					IF Cue.T60 AND NOT TestActuator.Drive1 THEN
+			'						FailNow := 60;
+			'					END_IF;
+			'					IF Cue.T200 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 200;
+			'					END_IF;
+			'				16: //At position 1
+			'					IF Cue.T50 AND NOT (TestActuator.AtPos1 AND TestActuator.Drive1 AND NoFaults) THEN
+			'						FailNow := 50;
+			'					END_IF;
+			'					IF Cue.T200 AND NOT NoFaults THEN
+			'						FailNow := 200;
+			'					END_IF;
+			'				17: //Move to position 0
+			'					IF Cue.T50 THEN
+			'						Sensor0 := 1;
+			'						Sensor1 := 0;
+			'					END_IF;
+			'					IF Cue.T80 AND NOT (TestActuator.AtPos0 AND TestActuator.Drive0 AND NoFaults) THEN
+			'						FailNow := 80;
+			'					END_IF;
+			'					IF Cue.T200 AND NOT NoFaults THEN
+			'						FailNow := 200;
+			'					END_IF;
+			'				18: //Cmd 0 uses Timeout0
+			'					IF Cue.T150 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 150;
+			'					END_IF;
+			'				19: //Cmd 1 uses Timeout1
+			'					IF Cue.T150 AND NOT TestActuator.TimeoutFault THEN
+			'						FailNow := 150;
+			'					END_IF;
+			'			END_CASE;
+			'		END_IF;
+			'
+			'		IF ((FailNow > 0) AND (FailTime[CaseIndex] = 0)) THEN
+			'			FailTime[CaseIndex] := FailNow;
+			'		END_IF;
+			'				
+			'		IF CaseTimer.ACC >= 400 THEN
+			'			CaseIndex := CaseIndex + 1;
+			'			IF CaseIndex > 23 THEN
+			'				DriverRun := 0;
+			'				DriverStep := 0;
+			'			ELSE
+			'				DriverStep := 10;
+			'			END_IF;
+			'		END_IF;
+			'END_CASE;
+			'			
+			'CaseTimer.PRE := 1000;
+			'CaseTimer.TimerEnable := (DriverStep = 30);
+			'TONR(CaseTimer);
+			'
+		END_ST_ROUTINE
+
+		CHILD_PROGRAMS
+		END_CHILD_PROGRAMS
+
+	END_PROGRAM
+
+	TASK MainTask (Type := CONTINUOUS,
+	               Rate := 10,
+	               Priority := 10,
+	               Watchdog := 500,
+	               DisableUpdateOutputs := No,
+	               InhibitTask := No)
+			MainProgram;
+	END_TASK
+
+CONFIG CST(SystemTimeMasterID := 0) END_CONFIG
+
+CONFIG EthernetNetwork(SupervisorModeEnabled := 0,
+	                                 SupervisorPrecedence := 0,
+	                                 BeaconInterval := 400,
+	                                 BeaconTimeout := 1960,
+	                                 VLANID := 0) END_CONFIG
+
+CONFIG EthernetPort1(Label := "1",
+	                             PortEnabled := 1) END_CONFIG
+
+CONFIG EthernetPort2(Label := "2",
+	                             PortEnabled := 1) END_CONFIG
+
+CONFIG TimeSynchronize(Priority1 := 128,
+	                                 Priority2 := 128,
+	                                 PTPEnable := 0) END_CONFIG
+
+CONFIG WallClockTime(LocalTimeAdjustment := 0,
+	                     TimeZone := 0) END_CONFIG
+
+END_CONTROLLER
+
